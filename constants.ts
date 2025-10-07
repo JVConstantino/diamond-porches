@@ -1,4 +1,4 @@
-import type { ProjectType, GalleryImage, Testimonial, YouTubeVideo } from './types';
+import type { ProjectType, GalleryImage, Testimonial } from './types';
 import { ProjectTypeEnum } from './types';
 import { 
     CubeIcon, 
@@ -10,6 +10,14 @@ import {
     ShutterIcon,
     WrenchScrewdriverIcon,
 } from './components/Icons';
+
+// --- CONFIGURAÇÃO PARA O YOUTUBE MCP SERVER ---
+// ID do canal do YouTube "Brazuca America"
+export const YOUTUBE_CHANNEL_ID = 'UC_1tA0-t_U4g_g2c3g-p8_w'; 
+// IMPORTANTE: Substitua esta URL pela URL real do seu servidor MCP.
+// Por padrão, ele roda em http://localhost:4000
+export const MCP_SERVER_BASE_URL = 'http://localhost:4000';
+// --- FIM DA CONFIGURAÇÃO ---
 
 
 export const PROJECT_TYPES: ProjectType[] = [
@@ -132,12 +140,3 @@ export const SERVICES_DATA = {
     ],
   },
 };
-
-export const YOUTUBE_VIDEOS: YouTubeVideo[] = [
-    { id: '4_Br5B62-YI', title: 'Modern Motorized Screen Enclosure', thumbnailUrl: 'https://img.youtube.com/vi/4_Br5B62-YI/hqdefault.jpg' },
-    { id: 'G9B4jfpj-rA', title: 'Seamless Motorized Screen Installation', thumbnailUrl: 'https://img.youtube.com/vi/G9B4jfpj-rA/hqdefault.jpg' },
-    { id: 'C2J4gLUnQuc', title: 'Full Screen Enclosure Replacement', thumbnailUrl: 'https://img.youtube.com/vi/C2J4gLUnQuc/hqdefault.jpg' },
-    { id: 'rF8f6eYkM8U', title: 'Gutter Guard Installation Showcase', thumbnailUrl: 'https://img.youtube.com/vi/rF8f6eYkM8U/hqdefault.jpg' },
-    { id: 'kF_TfE7p3jE', title: 'Durable Pet Screen for Porches', thumbnailUrl: 'https://img.youtube.com/vi/kF_TfE7p3jE/hqdefault.jpg' },
-    { id: '8vXwE7p23-c', title: 'Elegant Motorized Screen Project', thumbnailUrl: 'https://img.youtube.com/vi/8vXwE7p23-c/hqdefault.jpg' },
-];

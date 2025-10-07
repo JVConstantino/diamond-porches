@@ -37,5 +37,7 @@ export interface Testimonial {
 export interface YouTubeVideo {
   id: string;
   title: string;
-  thumbnailUrl: string;
+  thumbnail: {
+    url: string;
+  };
 }
