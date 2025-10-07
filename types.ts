@@ -64,3 +64,26 @@ export interface ServicesData {
   screenedPorch: ServiceSection;
   otherExterior: ServiceSection;
 }
+
+export interface CaseStudyImage {
+  src: string;
+  alt: string;
+  type: 'before' | 'after';
+}
+
+export interface CaseStudyVideo {
+  id: string; // YouTube ID
+  title: string;
+}
+
+export interface CaseStudy {
+  id: string;
+  title: string;
+  location: string;
+  description: string;
+  squareFootage: number;
+  projectType: ProjectTypeEnum | string;
+  mainImage: string;
+  images: CaseStudyImage[];
+  videos: CaseStudyVideo[];
+}

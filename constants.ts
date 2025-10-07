@@ -1,6 +1,6 @@
 // FIX: Import React to resolve 'Cannot find name' error for React types.
 import React from 'react';
-import type { ProjectType, GalleryImage, Testimonial, YouTubeVideo, HeroImage, ServicesData } from './types';
+import type { ProjectType, GalleryImage, Testimonial, YouTubeVideo, HeroImage, ServicesData, CaseStudy } from './types';
 import { ProjectTypeEnum } from './types';
 import { 
     CubeIcon, 
@@ -183,4 +183,38 @@ export const INITIAL_HERO_IMAGES: HeroImage[] = [
     { id: '1', src: 'https://picsum.photos/seed/hero-bg-1/1920/1080', alt: 'Beautiful modern deck at sunset' },
     { id: '2', src: 'https://picsum.photos/seed/hero-bg-2/1920/1080', alt: 'Family enjoying a newly built patio' },
     { id: '3', src: 'https://picsum.photos/seed/hero-bg-3/1920/1080', alt: 'Sleek and secure pool fence' },
+];
+
+export const INITIAL_CASE_STUDIES: CaseStudy[] = [
+  {
+    id: 'cs1',
+    title: 'Modern Backyard Oasis',
+    location: 'Austin, TX',
+    description: 'A complete transformation of a suburban backyard into a modern oasis. We constructed a 500 sq ft multi-level composite deck with integrated lighting, perfect for entertaining. The project also included a sleek aluminum and glass pool fence for safety and style, ensuring an unobstructed view of the pool. The client wanted a low-maintenance, high-impact space for family gatherings.',
+    squareFootage: 500,
+    projectType: ProjectTypeEnum.Deck,
+    mainImage: 'https://picsum.photos/seed/cs-deck1/800/600',
+    images: [
+      { src: 'https://picsum.photos/seed/cs-deck1-before/800/600', alt: 'Original empty backyard', type: 'before' },
+      { src: 'https://picsum.photos/seed/cs-deck1-after1/800/600', alt: 'New composite deck with seating', type: 'after' },
+      { src: 'https://picsum.photos/seed/cs-deck1-after2/800/600', alt: 'Pool fence view from the deck', type: 'after' },
+    ],
+    videos: [
+      { id: 'zuDjCGvn-2I', title: 'Project Walkthrough Video' }
+    ],
+  },
+  {
+    id: 'cs2',
+    title: 'South Carolina Country House',
+    location: 'Charleston, SC',
+    description: 'This project involved installing seamless gutter guards on a large country house to protect against heavy seasonal rainfall and pine needle blockage. We used our premium micro-mesh system to ensure long-lasting, clog-free performance. The client is now free from the dangerous task of climbing ladders to clean gutters.',
+    squareFootage: 250, // Linear feet for gutters
+    projectType: ProjectTypeEnum.Gutters,
+    mainImage: 'https://picsum.photos/seed/cs-gutter1/800/600',
+    images: [
+      { src: 'https://picsum.photos/seed/cs-gutter1-before/800/600', alt: 'Gutters clogged with leaves', type: 'before' },
+      { src: 'https://picsum.photos/seed/cs-gutter1-after/800/600', alt: 'Clean gutters with new guards', type: 'after' },
+    ],
+    videos: [],
+  },
 ];

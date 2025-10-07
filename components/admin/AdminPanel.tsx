@@ -4,8 +4,9 @@ import ProjectManager from './ProjectManager';
 import GalleryManager from './GalleryManager';
 import YouTubeManager from './YouTubeManager';
 import ServicesManager from './ServicesManager';
+import CaseStudiesManager from './CaseStudiesManager';
 
-type AdminView = 'hero' | 'projects' | 'gallery' | 'youtube' | 'services';
+type AdminView = 'hero' | 'projects' | 'gallery' | 'youtube' | 'services' | 'casestudies';
 
 interface AdminPanelProps {
   onLogout: () => void;
@@ -23,6 +24,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
   const navItems: { key: AdminView, label: string }[] = [
     { key: 'hero', label: 'Hero Carousel' },
     { key: 'projects', label: 'Project Simulator' },
+    { key: 'casestudies', label: 'Case Studies' },
     { key: 'gallery', label: 'Gallery Images' },
     { key: 'youtube', label: 'YouTube Videos' },
     { key: 'services', label: 'Services List' },
@@ -32,6 +34,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
     switch (view) {
       case 'hero': return <HeroManager />;
       case 'projects': return <ProjectManager />;
+      case 'casestudies': return <CaseStudiesManager />;
       case 'gallery': return <GalleryManager />;
       case 'youtube': return <YouTubeManager />;
       case 'services': return <ServicesManager />;

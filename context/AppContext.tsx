@@ -1,13 +1,15 @@
 
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import type { HeroImage, ProjectType, GalleryImage, YouTubeVideo, ServicesData, Testimonial } from '../types';
+import type { HeroImage, ProjectType, GalleryImage, YouTubeVideo, ServicesData, Testimonial, CaseStudy } from '../types';
 import { 
     INITIAL_HERO_IMAGES, 
     INITIAL_PROJECT_TYPES, 
     INITIAL_GALLERY_IMAGES, 
     INITIAL_YOUTUBE_VIDEOS,
     INITIAL_SERVICES_DATA,
-    INITIAL_TESTIMONIALS
+    INITIAL_TESTIMONIALS,
+    INITIAL_CASE_STUDIES
 } from '../constants';
 import { ProjectTypeEnum } from '../types';
 // FIX: Import CubeIcon to resolve 'Cannot find name' error.
@@ -49,6 +51,8 @@ interface AppContextType {
   servicesData: ServicesData;
   setServicesData: React.Dispatch<React.SetStateAction<ServicesData>>;
   testimonials: Testimonial[]; // Testimonials are not editable in this version, but included for consistency
+  caseStudies: CaseStudy[];
+  setCaseStudies: React.Dispatch<React.SetStateAction<CaseStudy[]>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -62,6 +66,7 @@ export const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children
   const [galleryImages, setGalleryImages] = useStickyState<GalleryImage[]>('diamond-gallery-images', INITIAL_GALLERY_IMAGES);
   const [youtubeVideos, setYoutubeVideos] = useStickyState<YouTubeVideo[]>('diamond-youtube-videos', INITIAL_YOUTUBE_VIDEOS);
   const [servicesData, setServicesData] = useStickyState<ServicesData>('diamond-services-data', INITIAL_SERVICES_DATA);
+  const [caseStudies, setCaseStudies] = useStickyState<CaseStudy[]>('diamond-case-studies', INITIAL_CASE_STUDIES);
   
   // For now, testimonials are static.
   const [testimonials] = useState<Testimonial[]>(INITIAL_TESTIMONIALS);
@@ -91,6 +96,8 @@ export const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children
     servicesData,
     setServicesData,
     testimonials,
+    caseStudies,
+    setCaseStudies,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

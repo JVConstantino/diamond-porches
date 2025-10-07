@@ -8,6 +8,7 @@ import Testimonials from './components/Testimonials';
 import TrustBadges from './components/TrustBadges';
 import YouTubeCarousel from './components/YouTubeCarousel';
 import Footer from './components/Footer';
+import CaseStudies from './components/CaseStudies';
 
 const MainSite: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const MainSite: React.FC = () => {
         <Simulator />
         <TrustBadges />
         <Services />
+        <CaseStudies />
         <Gallery />
         <Testimonials />
         <YouTubeCarousel />
