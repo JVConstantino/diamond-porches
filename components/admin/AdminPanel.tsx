@@ -7,13 +7,17 @@ import ServicesManager from './ServicesManager';
 
 type AdminView = 'hero' | 'projects' | 'gallery' | 'youtube' | 'services';
 
+interface AdminPanelProps {
+  onLogout: () => void;
+}
+
 const DiamondIcon: React.FC<{ className?: string }> = ({ className }) => (
     <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12.0001 1.69226L3.92725 9.76511L12.0001 22.308L20.0729 9.76511L12.0001 1.69226ZM12.0001 4.33774L17.4272 9.76511H6.57294L12.0001 4.33774Z"></path>
     </svg>
   );
 
-const AdminPanel: React.FC = () => {
+const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
   const [view, setView] = useState<AdminView>('hero');
 
   const navItems: { key: AdminView, label: string }[] = [
@@ -59,10 +63,16 @@ const AdminPanel: React.FC = () => {
             </button>
           ))}
         </nav>
-        <div className="p-4 border-t border-brand-blue-900">
-            <a href="/" className="block w-full text-center px-4 py-2 rounded-md text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300">
+        <div className="p-4 border-t border-brand-blue-900 space-y-2">
+            <a href="/" className="block w-full text-center px-4 py-2 rounded-md text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors">
                 View Live Site
             </a>
+            <button
+              onClick={onLogout}
+              className="w-full text-center px-4 py-2 rounded-md text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition-colors"
+            >
+              Log Out
+            </button>
         </div>
       </aside>
       <main className="flex-1 p-6 sm:p-8 overflow-y-auto">

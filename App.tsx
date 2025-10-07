@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppContextProvider } from './context/AppContext';
 import MainSite from './MainSite';
-import AdminPanel from './components/admin/AdminPanel';
+import ProtectedAdmin from './components/admin/ProtectedAdmin';
 
 const App: React.FC = () => {
   return (
@@ -29,7 +29,7 @@ const Router: React.FC = () => {
   }, []);
 
   if (pathname.startsWith('/admin')) {
-    return <AdminPanel />;
+    return <ProtectedAdmin />;
   }
   
   return <MainSite />;
