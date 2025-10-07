@@ -43,7 +43,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
     <div className="flex h-screen bg-gray-100 font-body">
       <aside className="w-64 bg-brand-blue-950 text-white flex flex-col">
         <div className="h-16 flex items-center justify-center border-b border-brand-blue-900">
-          <a href="/" className="flex items-center gap-2 text-xl font-bold">
+          <a href="#" className="flex items-center gap-2 text-xl font-bold">
             <DiamondIcon className="h-6 w-6 text-brand-blue-500" />
             DIAMOND Admin
           </a>
@@ -64,7 +64,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
           ))}
         </nav>
         <div className="p-4 border-t border-brand-blue-900 space-y-2">
-            <a href="/" className="block w-full text-center px-4 py-2 rounded-md text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors">
+            <a href="#" className="block w-full text-center px-4 py-2 rounded-md text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors">
                 View Live Site
             </a>
             <button

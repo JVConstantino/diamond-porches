@@ -31,7 +31,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         <div className="flex items-center justify-center min-h-screen bg-gray-100 font-body">
             <div className="w-full max-w-sm p-8 space-y-6 bg-white rounded-lg shadow-xl">
                 <div className="text-center">
-                    <a href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-brand-blue-800">
+                    <a href="#" className="inline-flex items-center gap-2 text-2xl font-bold text-brand-blue-800">
                         <DiamondIcon className="h-6 w-6 text-brand-blue-600" />
                         DIAMOND Admin
                     </a>
@@ -69,7 +69,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
                     </div>
                 </form>
                  <div className="text-center border-t pt-4 mt-6">
-                    <a href="/" className="text-sm font-medium text-brand-blue-600 hover:text-brand-blue-500">
+                    <a href="#" className="text-sm font-medium text-brand-blue-600 hover:text-brand-blue-500">
                         &larr; Back to main site
                     </a>
                 </div>

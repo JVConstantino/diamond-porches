@@ -12,23 +12,24 @@ const App: React.FC = () => {
 };
 
 const Router: React.FC = () => {
-  // Simple router based on path
-  const [pathname, setPathname] = React.useState(window.location.pathname);
+  // Simple router based on hash
+  const [hash, setHash] = React.useState(window.location.hash);
 
   React.useEffect(() => {
-    const handlePopState = () => setPathname(window.location.pathname);
-    window.addEventListener('popstate', handlePopState);
-    // Also handle manual navigation via history.pushState if needed in admin panel
-    const handlePushState = () => setPathname(window.location.pathname);
-    window.addEventListener('pushstate', handlePushState);
+    const handleHashChange = () => {
+      setHash(window.location.hash);
+    };
 
+    window.addEventListener('hashchange', handleHashChange);
     return () => {
-      window.removeEventListener('popstate', handlePopState);
-      window.removeEventListener('pushstate', handlePushState);
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
+  
+  // Remove '#' and any leading '/' for a more robust path
+  const path = hash.replace(/^#\/?/, '');
 
-  if (pathname.startsWith('/admin')) {
+  if (path.startsWith('admin')) {
     return <ProtectedAdmin />;
   }
   
