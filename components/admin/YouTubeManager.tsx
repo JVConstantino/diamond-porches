@@ -44,41 +44,42 @@ const YouTubeManager: React.FC = () => {
     };
 
     return (
-        <div>
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">Manage YouTube Videos</h1>
+        <div className="space-y-8">
+            <h1 className="text-3xl font-bold text-gray-800">Manage YouTube Videos</h1>
 
-            <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-                <h2 className="text-lg font-semibold mb-4">Add New Video</h2>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h2 className="text-xl font-semibold mb-4 text-gray-700">Add New Video</h2>
                 <form onSubmit={handleAddVideo} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">YouTube URL</label>
-                        <input type="url" value={newVideoUrl} onChange={e => setNewVideoUrl(e.target.value)} required placeholder="https://www.youtube.com/watch?v=..." className="mt-1 w-full p-2 border rounded" />
+                        <label className="block text-sm font-medium text-gray-700 mb-1">YouTube URL</label>
+                        <input type="url" value={newVideoUrl} onChange={e => setNewVideoUrl(e.target.value)} required placeholder="https://www.youtube.com/watch?v=..." className="mt-1 w-full p-2 border border-gray-300 rounded-md" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Video Title</label>
-                        <input type="text" value={newVideoTitle} onChange={e => setNewVideoTitle(e.target.value)} required placeholder="A descriptive title" className="mt-1 w-full p-2 border rounded" />
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Video Title</label>
+                        <input type="text" value={newVideoTitle} onChange={e => setNewVideoTitle(e.target.value)} required placeholder="A descriptive title" className="mt-1 w-full p-2 border border-gray-300 rounded-md" />
                     </div>
-                    <button type="submit" className="px-6 py-2 text-sm font-semibold text-white bg-brand-blue-600 rounded-lg shadow-md hover:bg-brand-blue-700">
+                    <button type="submit" className="px-6 py-2 text-sm font-semibold text-white bg-brand-blue-600 rounded-lg shadow-sm hover:bg-brand-blue-700">
                         Add Video
                     </button>
                 </form>
             </div>
 
-            <div>
-                <h2 className="text-lg font-semibold mb-4">Current Videos</h2>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h2 className="text-xl font-semibold mb-4 text-gray-700">Current Videos</h2>
                 <div className="space-y-4">
                     {youtubeVideos.map(video => (
-                        <div key={video.id} className="bg-white p-4 rounded-lg shadow-md flex items-center gap-4">
-                            <img src={video.thumbnail.url} alt={video.title} className="w-28 h-20 object-cover rounded-md flex-shrink-0" />
+                        <div key={video.id} className="bg-white p-4 rounded-lg border border-gray-200 flex items-center gap-4">
+                            <img src={video.thumbnail.url} alt={video.title} className="w-32 h-20 object-cover rounded-md flex-shrink-0" />
                             <div className="flex-grow">
-                                <label className="text-xs font-medium text-gray-500">Title</label>
-                                <input type="text" value={video.title} onChange={e => handleUpdateTitle(video.id, e.target.value)} className="w-full p-1 border rounded text-sm" />
+                                <label className="text-xs font-medium text-gray-500 mb-1">Title</label>
+                                <input type="text" value={video.title} onChange={e => handleUpdateTitle(video.id, e.target.value)} className="w-full p-2 border border-gray-300 rounded-md text-sm" />
                             </div>
-                            <button onClick={() => handleRemoveVideo(video.id)} className="px-3 py-1 text-sm font-medium text-red-600 bg-red-100 rounded-md hover:bg-red-200">
+                            <button onClick={() => handleRemoveVideo(video.id)} className="px-4 py-2 text-sm font-medium text-red-700 bg-red-100 rounded-md hover:bg-red-200 transition-colors">
                                 Remove
                             </button>
                         </div>
                     ))}
+                     {youtubeVideos.length === 0 && <p className="text-gray-500 py-4 text-center">No videos have been added yet.</p>}
                 </div>
             </div>
         </div>

@@ -5,6 +5,16 @@ import GalleryManager from './GalleryManager';
 import YouTubeManager from './YouTubeManager';
 import ServicesManager from './ServicesManager';
 import CaseStudiesManager from './CaseStudiesManager';
+import { 
+    PhotoIcon, 
+    WrenchScrewdriverIcon as SettingsIcon, 
+    ClipboardDocumentListIcon, 
+    VideoCameraIcon,
+    Bars3Icon,
+    HomeIcon,
+    ArrowLeftOnRectangleIcon
+} from '../Icons';
+
 
 type AdminView = 'hero' | 'projects' | 'gallery' | 'youtube' | 'services' | 'casestudies';
 
@@ -21,20 +31,22 @@ const DiamondIcon: React.FC<{ className?: string }> = ({ className }) => (
 const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
   const [view, setView] = useState<AdminView>('hero');
 
-  const navItems: { key: AdminView, label: string }[] = [
-    { key: 'hero', label: 'Hero Carousel' },
-    { key: 'projects', label: 'Project Simulator' },
-    { key: 'casestudies', label: 'Case Studies' },
-    { key: 'gallery', label: 'Gallery Images' },
-    { key: 'youtube', label: 'YouTube Videos' },
-    { key: 'services', label: 'Services List' },
+  const navItems: { key: AdminView, label: string, icon: React.ElementType }[] = [
+    { key: 'hero', label: 'Hero Carousel', icon: PhotoIcon },
+    { key: 'projects', label: 'Project Simulator', icon: SettingsIcon },
+    { key: 'casestudies', label: 'Case Studies', icon: ClipboardDocumentListIcon },
+    { key: 'gallery', label: 'Gallery Images', icon: PhotoIcon },
+    { key: 'youtube', label: 'YouTube Videos', icon: VideoCameraIcon },
+    { key: 'services', label: 'Services List', icon: Bars3Icon },
   ];
+  
+  const currentViewTitle = navItems.find(item => item.key === view)?.label || 'Dashboard';
 
   const renderView = () => {
     switch (view) {
       case 'hero': return <HeroManager />;
       case 'projects': return <ProjectManager />;
-      case 'casestudies': return <CaseStudiesManager />;
+      case 'casestudies': return <CaseStudiesManager title={currentViewTitle} />;
       case 'gallery': return <GalleryManager />;
       case 'youtube': return <YouTubeManager />;
       case 'services': return <ServicesManager />;
@@ -43,43 +55,51 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 font-body">
-      <aside className="w-64 bg-brand-blue-950 text-white flex flex-col">
-        <div className="h-16 flex items-center justify-center border-b border-brand-blue-900">
-          <a href="#" className="flex items-center gap-2 text-xl font-bold">
-            <DiamondIcon className="h-6 w-6 text-brand-blue-500" />
-            DIAMOND Admin
+    <div className="flex h-screen bg-gray-50 font-body">
+      <aside className="w-64 bg-white text-gray-800 flex flex-col border-r border-gray-200">
+        <div className="h-16 flex items-center justify-center border-b border-gray-200">
+          <a href="/#" className="flex items-center gap-2 text-xl font-bold text-brand-blue-800">
+            <DiamondIcon className="h-6 w-6 text-brand-blue-600" />
+            DIAMOND
           </a>
         </div>
         <nav className="flex-1 px-4 py-4 space-y-2">
-          {navItems.map(item => (
-            <button
-              key={item.key}
-              onClick={() => setView(item.key)}
-              className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                view === item.key
-                  ? 'bg-brand-blue-700 text-white'
-                  : 'text-blue-100 hover:bg-brand-blue-800 hover:text-white'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
+          {navItems.map(item => {
+            const Icon = item.icon;
+            return (
+                 <button
+                  key={item.key}
+                  onClick={() => setView(item.key)}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                    view === item.key
+                      ? 'bg-brand-blue-50 text-brand-blue-700'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                  }`}
+                >
+                  <Icon className="h-5 w-5" />
+                  {item.label}
+                </button>
+            )
+          })}
         </nav>
-        <div className="p-4 border-t border-brand-blue-900 space-y-2">
-            <a href="#" className="block w-full text-center px-4 py-2 rounded-md text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors">
+        <div className="p-4 border-t border-gray-200 space-y-2">
+            <a href="/#" className="flex items-center gap-3 w-full text-left px-4 py-2.5 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                <HomeIcon className="h-5 w-5" />
                 View Live Site
             </a>
             <button
               onClick={onLogout}
-              className="w-full text-center px-4 py-2 rounded-md text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition-colors"
+              className="flex items-center gap-3 w-full text-left px-4 py-2.5 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
             >
+              <ArrowLeftOnRectangleIcon className="h-5 w-5" />
               Log Out
             </button>
         </div>
       </aside>
-      <main className="flex-1 p-6 sm:p-8 overflow-y-auto">
-        {renderView()}
+      <main className="flex-1 overflow-y-auto">
+        <div className="p-6 sm:p-8">
+            {renderView()}
+        </div>
       </main>
     </div>
   );
