@@ -14,9 +14,10 @@ import {
 // --- CONFIGURAÇÃO PARA O YOUTUBE MCP SERVER ---
 // ID do canal do YouTube "Brazuca America"
 export const YOUTUBE_CHANNEL_ID = 'UC_1tA0-t_U4g_g2c3g-p8_w'; 
-// IMPORTANTE: Substitua esta URL pela URL real do seu servidor MCP.
-// Por padrão, ele roda em http://localhost:4000
-export const MCP_SERVER_BASE_URL = 'http://localhost:4000';
+// URL do servidor MCP público
+export const MCP_SERVER_BASE_URL = 'https://mcp.ytmcp.com/mcp';
+// Chave de API para o servidor MCP
+export const MCP_API_KEY = 'sk_80e45f8a3cf372bc7c8c0b3964cafa90c9824217a15aa76b18590423683d3689';
 // --- FIM DA CONFIGURAÇÃO ---
 
 

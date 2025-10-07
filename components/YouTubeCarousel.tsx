@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { YOUTUBE_CHANNEL_ID, MCP_SERVER_BASE_URL } from '../constants';
+import { YOUTUBE_CHANNEL_ID, MCP_SERVER_BASE_URL, MCP_API_KEY } from '../constants';
 import type { YouTubeVideo } from '../types';
 import VideoModal from './VideoModal';
 import { PlayIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons';
@@ -16,20 +16,24 @@ const YouTubeCarousel: React.FC = () => {
     const fetchVideos = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${MCP_SERVER_BASE_URL}/channel/videos/uploads/${YOUTUBE_CHANNEL_ID}`);
+        const response = await fetch(`${MCP_SERVER_BASE_URL}/channel/videos/uploads/${YOUTUBE_CHANNEL_ID}`, {
+          headers: {
+            'x-api-key': MCP_API_KEY,
+          },
+        });
         if (!response.ok) {
-          throw new Error(`Falha ao buscar vídeos (Status: ${response.status}). Verifique se o servidor MCP está rodando e acessível.`);
+          throw new Error(`Falha na comunicação com o servidor de vídeos (Status: ${response.status}).`);
         }
         const data = await response.json();
         // Pega os 10 vídeos mais recentes
         setVideos(data.slice(0, 10));
         setError(null);
       } catch (err: any) {
-        let errorMessage = 'Falha ao buscar vídeos. Verifique se o servidor MCP está rodando e acessível.';
+        let errorMessage = 'Falha ao carregar os vídeos do YouTube.';
         if (err instanceof TypeError && err.message === 'Failed to fetch') {
-            errorMessage = 'Não foi possível conectar ao servidor de vídeos. Isso pode ser um erro de CORS ou o servidor (youtube-mcp-server) não está em execução. Certifique-se de que o servidor está rodando e configurado para aceitar requisições desta origem.';
+            errorMessage = 'Não foi possível conectar ao servidor de vídeos. Verifique sua conexão com a internet.';
         } else if (err.message) {
-            errorMessage = err.message;
+            errorMessage = `Ocorreu um erro: ${err.message}`;
         }
         setError(errorMessage);
         console.error("Erro ao buscar vídeos do MCP Server:", err);
