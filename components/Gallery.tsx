@@ -1,25 +1,21 @@
-
 import React, { useState, useMemo } from 'react';
-import type { GalleryImage } from '../types';
-import { ProjectTypeEnum } from '../types';
-import { GALLERY_IMAGES } from '../constants';
-
-const filters = [
-    { label: 'All Projects', value: 'all' },
-    { label: 'Decks & Patios', value: ProjectTypeEnum.Deck },
-    { label: 'Pool Fences', value: ProjectTypeEnum.PoolFence },
-    { label: 'Gutter Guards', value: ProjectTypeEnum.Gutters },
-];
+import { useAppContext } from '../context/AppContext';
 
 const Gallery: React.FC = () => {
+    const { galleryImages, projectTypes } = useAppContext();
     const [activeFilter, setActiveFilter] = useState('all');
+
+    const filters = useMemo(() => [
+        { label: 'All Projects', value: 'all' },
+        ...projectTypes.map(pt => ({ label: pt.name, value: pt.id })),
+    ], [projectTypes]);
     
     const filteredImages = useMemo(() => {
         if (activeFilter === 'all') {
-            return GALLERY_IMAGES;
+            return galleryImages;
         }
-        return GALLERY_IMAGES.filter(image => image.category === activeFilter);
-    }, [activeFilter]);
+        return galleryImages.filter(image => image.category === activeFilter);
+    }, [activeFilter, galleryImages]);
 
     return (
         <section id="gallery" className="py-16 sm:py-20 bg-gray-50">

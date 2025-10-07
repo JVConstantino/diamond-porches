@@ -1,3 +1,4 @@
+import React from 'react';
 
 export enum ProjectTypeEnum {
   Deck = 'deck',
@@ -13,17 +14,17 @@ export interface Material {
 }
 
 export interface ProjectType {
-  id: ProjectTypeEnum;
+  id: ProjectTypeEnum | string;
   name: string;
   materials: Material[];
   icon: React.ElementType;
 }
 
 export interface GalleryImage {
-  id: number;
+  id: number | string;
   src: string;
   alt: string;
-  category: ProjectTypeEnum;
+  category: ProjectTypeEnum | string;
 }
 
 export interface Testimonial {
@@ -40,4 +41,26 @@ export interface YouTubeVideo {
   thumbnail: {
     url: string;
   };
+}
+
+export interface HeroImage {
+  id: string;
+  src: string;
+  alt: string;
+}
+
+export interface Service {
+  name: string;
+  description: string;
+  icon: string; // Icon name as a string key
+}
+
+export interface ServiceSection {
+  title: string;
+  services: Service[];
+}
+
+export interface ServicesData {
+  screenedPorch: ServiceSection;
+  otherExterior: ServiceSection;
 }

@@ -1,49 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { YOUTUBE_CHANNEL_ID, MCP_SERVER_BASE_URL, MCP_API_KEY } from '../constants';
-import type { YouTubeVideo } from '../types';
+import React, { useState, useRef } from 'react';
+import { useAppContext } from '../context/AppContext';
 import VideoModal from './VideoModal';
 import { PlayIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons';
 
 const YouTubeCarousel: React.FC = () => {
+  const { youtubeVideos } = useAppContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState<string | null>(null);
-  const [videos, setVideos] = useState<YouTubeVideo[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`${MCP_SERVER_BASE_URL}/channel/videos/uploads/${YOUTUBE_CHANNEL_ID}`, {
-          headers: {
-            'x-api-key': MCP_API_KEY,
-          },
-        });
-        if (!response.ok) {
-          throw new Error(`Falha na comunicação com o servidor de vídeos (Status: ${response.status}).`);
-        }
-        const data = await response.json();
-        // Pega os 10 vídeos mais recentes
-        setVideos(data.slice(0, 10));
-        setError(null);
-      } catch (err: any) {
-        let errorMessage = 'Falha ao carregar os vídeos do YouTube.';
-        if (err instanceof TypeError && err.message === 'Failed to fetch') {
-            errorMessage = 'Não foi possível conectar ao servidor de vídeos. Verifique sua conexão com a internet.';
-        } else if (err.message) {
-            errorMessage = `Ocorreu um erro: ${err.message}`;
-        }
-        setError(errorMessage);
-        console.error("Erro ao buscar vídeos do MCP Server:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchVideos();
-  }, []);
 
   const openModal = (videoId: string) => {
     setSelectedVideoId(videoId);
@@ -66,58 +30,28 @@ const YouTubeCarousel: React.FC = () => {
   };
 
   const renderContent = () => {
-    if (isLoading) {
-      return (
-        <div className="flex space-x-6 pb-4">
-          {[...Array(4)].map((_, index) => (
-            <div key={index} className="flex-shrink-0 w-80">
-              <div className="relative overflow-hidden rounded-lg shadow-lg bg-gray-200 animate-pulse h-48 w-full" />
-              <div className="mt-4 h-6 bg-gray-200 rounded animate-pulse" />
-            </div>
-          ))}
-        </div>
-      );
-    }
-
-    if (error) {
-      return (
-        <div className="text-center py-10 px-4 bg-red-50 border border-red-200 rounded-lg">
-          <h3 className="text-lg font-semibold text-red-700">Ocorreu um erro</h3>
-          <p className="text-red-600 mt-2">{error}</p>
-          <p className="text-gray-500 text-sm mt-2">Por favor, tente novamente mais tarde.</p>
-        </div>
-      );
-    }
-    
-    if (videos.length === 0) {
-        return (
-             <div className="text-center py-10 px-4 bg-gray-100 border border-gray-200 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-700">Nenhum vídeo encontrado</h3>
-                <p className="text-gray-600 mt-2">Não foi possível carregar os vídeos no momento.</p>
-             </div>
-        )
-    }
-
     return (
       <div
         ref={scrollContainerRef}
         className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide"
         style={{ scrollSnapType: 'x mandatory' }}
       >
-        {videos.map((video) => (
+        {youtubeVideos.map((video) => (
           <div
             key={video.id}
-            className="group relative flex-shrink-0 w-80 cursor-pointer"
+            className="group relative flex-shrink-0 w-80 cursor-pointer rounded-lg shadow-lg overflow-hidden"
             onClick={() => openModal(video.id)}
             style={{ scrollSnapAlign: 'start' }}
           >
-            <div className="relative overflow-hidden rounded-lg shadow-lg">
-              <img src={video.thumbnail.url} alt={video.title} className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <PlayIcon className="h-16 w-16 text-white" />
-              </div>
+            <img src={video.thumbnail.url} alt={video.title} className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
+            
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <PlayIcon className="h-16 w-16 text-white" />
             </div>
-            <h3 className="mt-4 font-semibold text-gray-800 text-center">{video.title}</h3>
+
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent pointer-events-none">
+                <h3 className="font-semibold text-white text-lg">{video.title}</h3>
+            </div>
           </div>
         ))}
       </div>
@@ -141,7 +75,7 @@ const YouTubeCarousel: React.FC = () => {
           <div className="relative mt-12">
             {renderContent()}
             
-            {!isLoading && !error && videos.length > 0 && (
+            {youtubeVideos.length > 3 && (
                  <>
                     <button
                         onClick={() => scroll('left')}

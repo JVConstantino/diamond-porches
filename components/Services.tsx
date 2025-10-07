@@ -1,8 +1,10 @@
 import React from 'react';
-import { SERVICES_DATA } from '../constants';
+import { useAppContext } from '../context/AppContext';
+import { ICON_MAP } from '../constants';
+import type { Service } from '../types';
 
-const ServiceCard: React.FC<{ service: typeof SERVICES_DATA.screenedPorch.services[0] }> = ({ service }) => {
-    const Icon = service.icon;
+const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
+    const Icon = ICON_MAP[service.icon] || ICON_MAP['CubeIcon']; // Fallback icon
     return (
         <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
             <div className="flex items-center justify-center h-12 w-12 rounded-full bg-brand-blue-100 mb-4">
@@ -16,6 +18,8 @@ const ServiceCard: React.FC<{ service: typeof SERVICES_DATA.screenedPorch.servic
 
 
 const Services: React.FC = () => {
+    const { servicesData } = useAppContext();
+    
     return (
         <section id="services" className="py-16 sm:py-20 bg-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,10 +36,10 @@ const Services: React.FC = () => {
                     {/* Screened Porch Services */}
                     <div>
                         <h3 className="text-2xl font-bold text-brand-blue-800 mb-6 text-center sm:text-left">
-                           {SERVICES_DATA.screenedPorch.title}
+                           {servicesData.screenedPorch.title}
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                           {SERVICES_DATA.screenedPorch.services.map(service => (
+                           {servicesData.screenedPorch.services.map(service => (
                                <ServiceCard key={service.name} service={service} />
                            ))}
                         </div>
@@ -44,10 +48,10 @@ const Services: React.FC = () => {
                     {/* Other Exterior Services */}
                     <div>
                         <h3 className="text-2xl font-bold text-brand-blue-800 mb-6 text-center sm:text-left">
-                            {SERVICES_DATA.otherExterior.title}
+                            {servicesData.otherExterior.title}
                         </h3>
                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                           {SERVICES_DATA.otherExterior.services.map(service => (
+                           {servicesData.otherExterior.services.map(service => (
                                <ServiceCard key={service.name} service={service} />
                            ))}
                         </div>

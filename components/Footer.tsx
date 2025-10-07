@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="md:col-span-1">
-             <a href="#" className="flex items-center gap-2 text-2xl font-bold">
+             <a href="/" className="flex items-center gap-2 text-2xl font-bold">
                 <DiamondIcon className="h-6 w-6 text-brand-blue-500" />
                 DIAMOND
              </a>
@@ -55,6 +55,7 @@ const Footer: React.FC = () => {
               {navLinks.map(link => (
                 <li key={link.href}><a href={link.href} className="text-sm text-blue-200 hover:text-white transition-colors">{link.label}</a></li>
               ))}
+              <li><a href="/admin" className="text-sm text-blue-200 hover:text-white transition-colors">Admin Panel</a></li>
             </ul>
           </div>
 

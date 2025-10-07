@@ -1,11 +1,10 @@
-
 import React, { useState, useMemo } from 'react';
 import type { ProjectType, Material } from '../types';
-import { ProjectTypeEnum } from '../types';
-import { PROJECT_TYPES } from '../constants';
+import { useAppContext } from '../context/AppContext';
 import QuoteModal from './QuoteModal';
 
 const Simulator: React.FC = () => {
+  const { projectTypes } = useAppContext();
   const [step, setStep] = useState(1);
   const [selectedProjectType, setSelectedProjectType] = useState<ProjectType | null>(null);
   const [dimensions, setDimensions] = useState({ width: '10', length: '20' });
@@ -81,7 +80,7 @@ const Simulator: React.FC = () => {
             {/* Step 1: Project Type */}
             {step === 1 && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                    {PROJECT_TYPES.map((pt) => {
+                    {projectTypes.map((pt) => {
                         const Icon = pt.icon;
                         return (
                             <button

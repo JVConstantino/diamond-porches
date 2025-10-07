@@ -1,8 +1,9 @@
-
 import React from 'react';
-import { TESTIMONIALS } from '../constants';
+import { useAppContext } from '../context/AppContext';
 
 const Testimonials: React.FC = () => {
+  const { testimonials } = useAppContext();
+  
   return (
     <section id="testimonials" className="py-16 sm:py-20 bg-brand-blue-950 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,12 +17,10 @@ const Testimonials: React.FC = () => {
         </div>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((testimonial) => (
+          {testimonials.map((testimonial) => (
             <div key={testimonial.id} className="bg-brand-blue-900 p-8 rounded-xl shadow-lg flex flex-col">
               <div className="flex-grow">
-                <svg className="w-10 h-10 text-brand-blue-600 mb-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 11a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM15 11a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM8 6a1 1 0 00-1 1v1a1 1 0 002 0V7a1 1 0 00-1-1zM12 6a1 1 0 00-1 1v1a1 1 0 002 0V7a1 1 0 00-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" />
-                </svg>
+                 <svg className="w-8 h-8 text-brand-blue-700 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
                 <p className="text-blue-100 italic">"{testimonial.quote}"</p>
               </div>
               <div className="mt-6 pt-6 border-t border-brand-blue-800 flex items-center">

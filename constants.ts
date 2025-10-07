@@ -1,4 +1,6 @@
-import type { ProjectType, GalleryImage, Testimonial } from './types';
+// FIX: Import React to resolve 'Cannot find name' error for React types.
+import React from 'react';
+import type { ProjectType, GalleryImage, Testimonial, YouTubeVideo, HeroImage, ServicesData } from './types';
 import { ProjectTypeEnum } from './types';
 import { 
     CubeIcon, 
@@ -11,17 +13,52 @@ import {
     WrenchScrewdriverIcon,
 } from './components/Icons';
 
-// --- CONFIGURAÇÃO PARA O YOUTUBE MCP SERVER ---
-// ID do canal do YouTube "Brazuca America"
-export const YOUTUBE_CHANNEL_ID = 'UC_1tA0-t_U4g_g2c3g-p8_w'; 
-// URL do servidor MCP público
-export const MCP_SERVER_BASE_URL = 'https://mcp.ytmcp.com/mcp';
-// Chave de API para o servidor MCP
-export const MCP_API_KEY = 'sk_80e45f8a3cf372bc7c8c0b3964cafa90c9824217a15aa76b18590423683d3689';
-// --- FIM DA CONFIGURAÇÃO ---
+export const ICON_MAP: { [key: string]: React.ElementType } = {
+  CubeIcon,
+  ShieldCheckIcon,
+  BeakerIcon,
+  ScreenPorchIcon,
+  SidingIcon,
+  FenceIcon,
+  ShutterIcon,
+  WrenchScrewdriverIcon,
+};
+export const ICON_NAMES = Object.keys(ICON_MAP);
 
 
-export const PROJECT_TYPES: ProjectType[] = [
+export const INITIAL_YOUTUBE_VIDEOS: YouTubeVideo[] = [
+  {
+    id: 'zuDjCGvn-2I',
+    title: 'Stunning Composite Deck Transformation',
+    thumbnail: {
+      url: 'https://i.ytimg.com/vi/zuDjCGvn-2I/hqdefault.jpg',
+    },
+  },
+  {
+    id: '34YMLMGPkcc',
+    title: 'Elegant Pool Fence Installation Process',
+    thumbnail: {
+      url: 'https://i.ytimg.com/vi/34YMLMGPkcc/hqdefault.jpg',
+    },
+  },
+  {
+    id: 'Ra2iS3MeTQs',
+    title: 'Seamless Gutter Guard System in Action',
+    thumbnail: {
+      url: 'https://i.ytimg.com/vi/TtLmejMEe44/hqdefault.jpg',
+    },
+  },
+  {
+    id: 'TtLmejMEe44',
+    title: 'Before & After: A Complete Porch Makeover',
+    thumbnail: {
+      url: 'https://i.ytimg.com/vi/TtLmejMEe44/hqdefault.jpg',
+    },
+  },
+];
+
+
+export const INITIAL_PROJECT_TYPES: ProjectType[] = [
   {
     id: ProjectTypeEnum.Deck,
     name: 'Decks & Patios',
@@ -54,7 +91,7 @@ export const PROJECT_TYPES: ProjectType[] = [
   },
 ];
 
-export const GALLERY_IMAGES: GalleryImage[] = [
+export const INITIAL_GALLERY_IMAGES: GalleryImage[] = [
   { id: 1, src: 'https://picsum.photos/seed/deck1/800/600', alt: 'Modern composite deck', category: ProjectTypeEnum.Deck },
   { id: 2, src: 'https://picsum.photos/seed/pool1/800/600', alt: 'Sleek glass pool fence', category: ProjectTypeEnum.PoolFence },
   { id: 3, src: 'https://picsum.photos/seed/gutter1/800/600', alt: 'Gutter guard installation', category: ProjectTypeEnum.Gutters },
@@ -65,7 +102,7 @@ export const GALLERY_IMAGES: GalleryImage[] = [
   { id: 8, src: 'https://picsum.photos/seed/pool3/800/600', alt: 'Elegant aluminum pool fencing', category: ProjectTypeEnum.PoolFence },
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
+export const INITIAL_TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
     quote: "The instant quote tool was incredibly accurate and helped us budget perfectly. The final deck exceeded our expectations. Truly professional service from start to finish!",
@@ -89,29 +126,29 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-export const SERVICES_DATA = {
+export const INITIAL_SERVICES_DATA: ServicesData = {
   screenedPorch: {
     title: 'Screened Porch & Gutter Services',
     services: [
       {
         name: 'Motorized & Regular Porches',
         description: 'Custom screen solutions to enjoy the outdoors bug-free, perfectly matching your home and lifestyle.',
-        icon: ScreenPorchIcon,
+        icon: 'ScreenPorchIcon',
       },
       {
         name: 'Screen Repair & Replacement',
         description: 'From minor tear repairs to full screen replacement with high-quality mesh to renew your porch.',
-        icon: WrenchScrewdriverIcon,
+        icon: 'WrenchScrewdriverIcon',
       },
       {
         name: 'Specialty Pet Screens',
         description: 'Durable, scratch-resistant mesh designed to keep your pets safe, secure, and contained.',
-        icon: ShieldCheckIcon,
+        icon: 'ShieldCheckIcon',
       },
       {
         name: 'Gutter Guard Installation',
         description: 'Durable, clog-resistant protectors that fit seamlessly onto your existing gutters to prevent debris.',
-        icon: BeakerIcon,
+        icon: 'BeakerIcon',
       },
     ],
   },
@@ -121,23 +158,29 @@ export const SERVICES_DATA = {
       {
         name: 'Vinyl Siding Replacement',
         description: 'Replace cracked, faded, or damaged siding to restore your home’s beauty and protection.',
-        icon: SidingIcon,
+        icon: 'SidingIcon',
       },
       {
         name: 'Shutter Services',
         description: 'Professional installation, repair, and replacement to enhance your home’s curb appeal.',
-        icon: ShutterIcon,
+        icon: 'ShutterIcon',
       },
       {
         name: 'Fencing & Privacy Panels',
         description: 'Sturdy fences for privacy and security, including property dividers and decorative panels.',
-        icon: FenceIcon,
+        icon: 'FenceIcon',
       },
        {
         name: 'Exterior Fixture Mounting',
         description: 'Secure mounting for lights and outlets with professional box and J-block replacement.',
-        icon: CubeIcon,
+        icon: 'CubeIcon',
       },
     ],
   },
 };
+
+export const INITIAL_HERO_IMAGES: HeroImage[] = [
+    { id: '1', src: 'https://picsum.photos/seed/hero-bg-1/1920/1080', alt: 'Beautiful modern deck at sunset' },
+    { id: '2', src: 'https://picsum.photos/seed/hero-bg-2/1920/1080', alt: 'Family enjoying a newly built patio' },
+    { id: '3', src: 'https://picsum.photos/seed/hero-bg-3/1920/1080', alt: 'Sleek and secure pool fence' },
+];

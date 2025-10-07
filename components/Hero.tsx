@@ -1,13 +1,34 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAppContext } from '../context/AppContext';
 
 const Hero: React.FC = () => {
+  const { heroImages } = useAppContext();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (heroImages.length > 1) {
+      const timer = setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+      }, 5000); // Change image every 5 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, heroImages.length]);
+
   return (
-    <section className="relative bg-brand-blue-900 text-white py-20 sm:py-28 lg:py-32">
-       <div className="absolute inset-0">
-        <img src="https://picsum.photos/seed/hero-bg/1920/1080" alt="Beautiful modern deck" className="w-full h-full object-cover opacity-30" />
+    <section className="relative bg-brand-blue-900 text-white py-20 sm:py-28 lg:py-32 h-[60vh] sm:h-auto">
+      <div className="absolute inset-0">
+        {heroImages.map((image, index) => (
+          <img
+            key={image.id}
+            src={image.src}
+            alt={image.alt}
+            className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === currentIndex ? 'opacity-30' : 'opacity-0'
+            }`}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-blue-950 to-brand-blue-800/60"></div>
-       </div>
+      </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl text-center mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold !leading-tight tracking-tight font-sans">
