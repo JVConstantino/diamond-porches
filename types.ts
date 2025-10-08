@@ -87,3 +87,27 @@ export interface CaseStudy {
   images: CaseStudyImage[];
   videos: CaseStudyVideo[];
 }
+
+export interface Quote {
+  id: string;
+  date: string;
+  userInfo: {
+    name: string;
+    city: string;
+    neighborhood: string;
+    phone: string;
+  };
+  projectType: {
+    id: string;
+    name: string;
+  };
+  dimensions: {
+    width: string;
+    length: string;
+  };
+  material: {
+    id: string;
+    name: string;
+  };
+  estimatedCost: number;
+}

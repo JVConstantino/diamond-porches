@@ -1,14 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { useTranslations } from '../context/LanguageProvider';
 
 const Gallery: React.FC = () => {
     const { galleryImages, projectTypes } = useAppContext();
+    const { t } = useTranslations();
     const [activeFilter, setActiveFilter] = useState('all');
 
     const filters = useMemo(() => [
-        { label: 'All Projects', value: 'all' },
-        ...projectTypes.map(pt => ({ label: pt.name, value: pt.id })),
-    ], [projectTypes]);
+        { label: t('gallery.filter_all'), value: 'all' },
+        ...projectTypes.map(pt => ({ label: t(pt.id), value: pt.id })),
+    ], [projectTypes, t]);
     
     const filteredImages = useMemo(() => {
         if (activeFilter === 'all') {
@@ -22,10 +24,10 @@ const Gallery: React.FC = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-3xl mx-auto text-center">
                     <h2 className="text-3xl sm:text-4xl font-bold text-brand-blue-900 font-sans">
-                        Quality You Can See
+                        {t('gallery.title')}
                     </h2>
                     <p className="mt-4 text-lg text-gray-600">
-                        Browse our gallery of recently completed projects and find inspiration for your own home.
+                        {t('gallery.subtitle')}
                     </p>
                 </div>
 
@@ -50,13 +52,13 @@ const Gallery: React.FC = () => {
                         <div key={image.id} className="group relative overflow-hidden rounded-lg shadow-lg aspect-w-4 aspect-h-3">
                            <img
                                 src={image.src}
-                                alt={image.alt}
+                                alt={t(`gallery.alt.${image.id}`)}
                                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-in-out"
                                 loading="lazy"
                            />
                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                            <div className="absolute bottom-0 left-0 p-4">
-                                <p className="text-white text-lg font-semibold">{image.alt}</p>
+                                <p className="text-white text-lg font-semibold">{t(`gallery.alt.${image.id}`)}</p>
                            </div>
                         </div>
                     ))}

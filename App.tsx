@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppContextProvider } from './context/AppContext';
+import { LanguageProvider } from './context/LanguageProvider';
 import MainSite from './MainSite';
 import ProtectedAdmin from './components/admin/ProtectedAdmin';
 import CaseStudyDetailPage from './components/CaseStudyDetailPage';
@@ -36,9 +37,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <AppContextProvider>
-      {renderPage()}
-    </AppContextProvider>
+    <LanguageProvider>
+      <AppContextProvider>
+        {renderPage()}
+      </AppContextProvider>
+    </LanguageProvider>
   );
 };
 

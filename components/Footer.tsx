@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslations } from '../context/LanguageProvider';
 
 const DiamondIcon: React.FC<{ className?: string }> = ({ className }) => (
     <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -7,12 +8,14 @@ const DiamondIcon: React.FC<{ className?: string }> = ({ className }) => (
   );
 
 const Footer: React.FC = () => {
+  const { t } = useTranslations();
+  
   const navLinks = [
-    { href: '#simulator', label: 'Estimator' },
-    { href: '#services', label: 'Services' },
-    { href: '#casestudies', label: 'Projects' },
-    { href: '#gallery', label: 'Gallery' },
-    { href: '#testimonials', label: 'Reviews' },
+    { href: '#simulator', label: t('nav.estimator') },
+    { href: '#services', label: t('nav.services') },
+    { href: '#casestudies', label: t('nav.projects') },
+    { href: '#gallery', label: t('nav.gallery') },
+    { href: '#testimonials', label: t('nav.reviews') },
   ];
   
   const services = [
@@ -35,13 +38,13 @@ const Footer: React.FC = () => {
                 DIAMOND
              </a>
             <p className="mt-4 text-sm text-blue-200">
-              Building quality outdoor spaces with transparent pricing and unmatched craftsmanship.
+              {t('footer.tagline')}
             </p>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="font-semibold tracking-wider uppercase">Services</h3>
+            <h3 className="font-semibold tracking-wider uppercase">{t('footer.services_title')}</h3>
             <ul className="mt-4 space-y-2">
               {services.map(service => (
                 <li key={service}><a href="#services" className="text-sm text-blue-200 hover:text-white transition-colors">{service}</a></li>
@@ -51,29 +54,29 @@ const Footer: React.FC = () => {
           
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold tracking-wider uppercase">Quick Links</h3>
+            <h3 className="font-semibold tracking-wider uppercase">{t('footer.links_title')}</h3>
             <ul className="mt-4 space-y-2">
               {navLinks.map(link => (
                 <li key={link.href}><a href={link.href} className="text-sm text-blue-200 hover:text-white transition-colors">{link.label}</a></li>
               ))}
-              <li><a href="#admin" className="text-sm text-blue-200 hover:text-white transition-colors">Admin Panel</a></li>
+              <li><a href="#admin" className="text-sm text-blue-200 hover:text-white transition-colors">{t('nav.admin')}</a></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold tracking-wider uppercase">Contact Us</h3>
+            <h3 className="font-semibold tracking-wider uppercase">{t('footer.contact_title')}</h3>
             <ul className="mt-4 space-y-2 text-sm text-blue-200">
                 <li>(800) 555-0199</li>
                 <li>contact@diamonddecks.com</li>
-                <li>Serving the greater USA</li>
+                <li>{t('footer.contact_location')}</li>
             </ul>
           </div>
 
         </div>
 
         <div className="mt-12 pt-8 border-t border-brand-blue-900 text-center text-sm text-blue-300">
-          <p>&copy; {new Date().getFullYear()} DIAMOND Home Improvement. All rights reserved.</p>
+          <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
         </div>
       </div>
     </footer>

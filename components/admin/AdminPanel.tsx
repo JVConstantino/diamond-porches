@@ -5,6 +5,7 @@ import GalleryManager from './GalleryManager';
 import YouTubeManager from './YouTubeManager';
 import ServicesManager from './ServicesManager';
 import CaseStudiesManager from './CaseStudiesManager';
+import QuoteManager from './QuoteManager';
 import { 
     PhotoIcon, 
     WrenchScrewdriverIcon as SettingsIcon, 
@@ -12,11 +13,12 @@ import {
     VideoCameraIcon,
     Bars3Icon,
     HomeIcon,
-    ArrowLeftOnRectangleIcon
+    ArrowLeftOnRectangleIcon,
+    InboxStackIcon
 } from '../Icons';
 
 
-type AdminView = 'hero' | 'projects' | 'gallery' | 'youtube' | 'services' | 'casestudies';
+type AdminView = 'hero' | 'projects' | 'gallery' | 'youtube' | 'services' | 'casestudies' | 'quotes';
 
 interface AdminPanelProps {
   onLogout: () => void;
@@ -29,12 +31,13 @@ const DiamondIcon: React.FC<{ className?: string }> = ({ className }) => (
   );
 
 const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
-  const [view, setView] = useState<AdminView>('hero');
+  const [view, setView] = useState<AdminView>('quotes');
 
   const navItems: { key: AdminView, label: string, icon: React.ElementType }[] = [
-    { key: 'hero', label: 'Hero Carousel', icon: PhotoIcon },
-    { key: 'projects', label: 'Project Simulator', icon: SettingsIcon },
+    { key: 'quotes', label: 'Quote Requests', icon: InboxStackIcon },
     { key: 'casestudies', label: 'Case Studies', icon: ClipboardDocumentListIcon },
+    { key: 'projects', label: 'Project Simulator', icon: SettingsIcon },
+    { key: 'hero', label: 'Hero Carousel', icon: PhotoIcon },
     { key: 'gallery', label: 'Gallery Images', icon: PhotoIcon },
     { key: 'youtube', label: 'YouTube Videos', icon: VideoCameraIcon },
     { key: 'services', label: 'Services List', icon: Bars3Icon },
@@ -44,13 +47,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout }) => {
 
   const renderView = () => {
     switch (view) {
+      case 'quotes': return <QuoteManager />;
       case 'hero': return <HeroManager />;
       case 'projects': return <ProjectManager />;
       case 'casestudies': return <CaseStudiesManager title={currentViewTitle} />;
       case 'gallery': return <GalleryManager />;
       case 'youtube': return <YouTubeManager />;
       case 'services': return <ServicesManager />;
-      default: return <HeroManager />;
+      default: return <QuoteManager />;
     }
   };
 

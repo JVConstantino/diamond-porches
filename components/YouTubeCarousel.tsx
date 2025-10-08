@@ -2,9 +2,11 @@ import React, { useState, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
 import VideoModal from './VideoModal';
 import { PlayIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons';
+import { useTranslations } from '../context/LanguageProvider';
 
 const YouTubeCarousel: React.FC = () => {
   const { youtubeVideos } = useAppContext();
+  const { t } = useTranslations();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -65,10 +67,10 @@ const YouTubeCarousel: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-blue-900 font-sans">
-              See Our Work in Action
+              {t('youtube.title')}
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Watch our team bring projects to life, from initial design to final walkthrough.
+              {t('youtube.subtitle')}
             </p>
           </div>
 

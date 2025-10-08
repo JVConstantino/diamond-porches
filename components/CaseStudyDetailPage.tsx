@@ -3,6 +3,7 @@ import { useAppContext } from '../context/AppContext';
 import Header from './Header';
 import Footer from './Footer';
 import { PlayIcon } from './Icons';
+import { useTranslations } from '../context/LanguageProvider';
 
 interface CaseStudyDetailPageProps {
     caseStudyId: string;
@@ -14,6 +15,7 @@ type MediaItem =
 
 const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ caseStudyId }) => {
     const { caseStudies } = useAppContext();
+    const { t } = useTranslations();
     const caseStudy = caseStudies.find(cs => cs.id === caseStudyId);
 
     const mediaGallery: MediaItem[] = useMemo(() => {
@@ -21,8 +23,8 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ caseStudyId }
         const images: MediaItem[] = caseStudy.images.map(img => ({ type: 'image', src: img.src, alt: img.alt }));
         const videos: MediaItem[] = caseStudy.videos.map(vid => ({ type: 'video', id: vid.id, title: vid.title }));
         // Put the main image first
-        return [{ type: 'image', src: caseStudy.mainImage, alt: caseStudy.title }, ...images, ...videos];
-    }, [caseStudy]);
+        return [{ type: 'image', src: caseStudy.mainImage, alt: t(`caseStudy.${caseStudy.id}.title`) }, ...images, ...videos];
+    }, [caseStudy, t]);
 
     const [activeMedia, setActiveMedia] = useState<MediaItem | null>(mediaGallery.length > 0 ? mediaGallery[0] : null);
 
@@ -31,10 +33,10 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ caseStudyId }
             <div className="bg-white">
                 <Header />
                 <main className="container mx-auto py-20 text-center">
-                    <h1 className="text-4xl font-bold">Project Not Found</h1>
-                    <p className="mt-4 text-lg">The project you are looking for does not exist or has been moved.</p>
+                    <h1 className="text-4xl font-bold">{t('casedetail.not_found_title')}</h1>
+                    <p className="mt-4 text-lg">{t('casedetail.not_found_subtitle')}</p>
                      <a href="/#" className="mt-8 inline-block px-6 py-3 text-white bg-brand-blue-600 rounded-lg hover:bg-brand-blue-700">
-                        Back to Projects
+                        {t('casedetail.not_found_cta')}
                     </a>
                 </main>
                 <Footer />
@@ -80,11 +82,11 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ caseStudyId }
             <main>
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
                     <nav className="text-sm text-gray-500 mb-6" aria-label="Breadcrumb">
-                        <a href="/#" className="hover:text-brand-blue-600">Home</a>
+                        <a href="/#" className="hover:text-brand-blue-600">{t('casedetail.breadcrumb_home')}</a>
                         <span className="mx-2">&gt;</span>
-                        <a href="/#casestudies" className="hover:text-brand-blue-600">Projects</a>
+                        <a href="/#casestudies" className="hover:text-brand-blue-600">{t('casedetail.breadcrumb_projects')}</a>
                         <span className="mx-2">&gt;</span>
-                        <span className="font-semibold text-gray-700">{caseStudy.title}</span>
+                        <span className="font-semibold text-gray-700">{t(`caseStudy.${caseStudy.id}.title`)}</span>
                     </nav>
 
                     <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
@@ -120,31 +122,31 @@ const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ caseStudyId }
 
                             {/* Project Info */}
                             <div className="flex flex-col">
-                                <h1 className="text-3xl lg:text-4xl font-bold text-brand-blue-900 font-sans">{caseStudy.title}</h1>
-                                <p className="text-md text-gray-500 mt-2">{caseStudy.location}</p>
+                                <h1 className="text-3xl lg:text-4xl font-bold text-brand-blue-900 font-sans">{t(`caseStudy.${caseStudy.id}.title`)}</h1>
+                                <p className="text-md text-gray-500 mt-2">{t(`caseStudy.${caseStudy.id}.location`)}</p>
 
                                 <div className="mt-6 pt-6 border-t">
-                                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Project Details</h2>
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-2">{t('casedetail.details_title')}</h2>
                                     <ul className="space-y-2 text-gray-700">
                                         <li className="flex justify-between items-center bg-gray-100 p-3 rounded-md">
-                                            <span className="font-semibold">Type:</span> 
-                                            <span className="capitalize">{caseStudy.projectType.replace('_', ' ')}</span>
+                                            <span className="font-semibold">{t('casedetail.details_type')}</span> 
+                                            <span className="capitalize">{t(caseStudy.projectType)}</span>
                                         </li>
                                         <li className="flex justify-between items-center bg-gray-100 p-3 rounded-md">
-                                            <span className="font-semibold">Size:</span> 
+                                            <span className="font-semibold">{t('casedetail.details_size')}</span> 
                                             <span>{caseStudy.squareFootage} sq ft</span>
                                         </li>
                                     </ul>
                                 </div>
                                 
                                 <div className="mt-6">
-                                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Description</h2>
-                                    <p className="text-gray-600 whitespace-pre-wrap leading-relaxed">{caseStudy.description}</p>
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-2">{t('casedetail.description_title')}</h2>
+                                    <p className="text-gray-600 whitespace-pre-wrap leading-relaxed">{t(`caseStudy.${caseStudy.id}.description`)}</p>
                                 </div>
 
                                 <div className="mt-8 flex-grow flex items-end">
                                     <a href="#simulator" className="w-full text-center px-8 py-4 text-lg font-semibold text-brand-blue-900 bg-brand-gold rounded-lg shadow-xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold transform hover:scale-105 transition-all duration-300 inline-block">
-                                        Estimate a Similar Project
+                                        {t('casedetail.cta')}
                                     </a>
                                 </div>
 

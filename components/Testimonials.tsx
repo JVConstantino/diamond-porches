@@ -1,18 +1,20 @@
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
+import { useTranslations } from '../context/LanguageProvider';
 
 const Testimonials: React.FC = () => {
   const { testimonials } = useAppContext();
+  const { t } = useTranslations();
   
   return (
     <section id="testimonials" className="py-16 sm:py-20 bg-brand-blue-950 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold font-sans">
-            Trusted by Homeowners Like You
+            {t('testimonials.title')}
           </h2>
           <p className="mt-4 text-lg text-blue-200">
-            Don't just take our word for it. Here's what our satisfied customers have to say.
+            {t('testimonials.subtitle')}
           </p>
         </div>
 

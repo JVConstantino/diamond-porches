@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslations } from '../context/LanguageProvider';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const DiamondIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -8,13 +10,14 @@ const DiamondIcon: React.FC<{ className?: string }> = ({ className }) => (
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslations();
 
   const navLinks = [
-    { href: '#simulator', label: 'Estimator' },
-    { href: '#services', label: 'Services' },
-    { href: '#casestudies', label: 'Projects' },
-    { href: '#gallery', label: 'Gallery' },
-    { href: '#testimonials', label: 'Reviews' },
+    { href: '#simulator', label: t('nav.estimator') },
+    { href: '#services', label: t('nav.services') },
+    { href: '#casestudies', label: t('nav.projects') },
+    { href: '#gallery', label: t('nav.gallery') },
+    { href: '#testimonials', label: t('nav.reviews') },
   ];
 
   return (
@@ -34,12 +37,14 @@ const Header: React.FC = () => {
               </a>
             ))}
           </nav>
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
+            <LanguageSwitcher />
             <a href="#simulator" className="px-5 py-2.5 text-sm font-semibold text-white bg-brand-blue-600 rounded-lg shadow-md hover:bg-brand-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue-500 transition-all duration-300">
-              Get Free Estimate
+              {t('nav.get_estimate')}
             </a>
           </div>
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
+            <LanguageSwitcher />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-600 hover:text-brand-blue-600 focus:outline-none"
@@ -60,7 +65,7 @@ const Header: React.FC = () => {
               </a>
             ))}
             <a href="#simulator" onClick={() => setIsMenuOpen(false)} className="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white bg-brand-blue-600 hover:bg-brand-blue-700 transition-colors duration-200">
-              Get Free Estimate
+              {t('nav.get_estimate')}
             </a>
           </div>
         </div>

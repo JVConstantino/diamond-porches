@@ -1,7 +1,7 @@
 
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import type { HeroImage, ProjectType, GalleryImage, YouTubeVideo, ServicesData, Testimonial, CaseStudy } from '../types';
+import type { HeroImage, ProjectType, GalleryImage, YouTubeVideo, ServicesData, Testimonial, CaseStudy, Quote } from '../types';
 import { 
     INITIAL_HERO_IMAGES, 
     INITIAL_PROJECT_TYPES, 
@@ -53,6 +53,8 @@ interface AppContextType {
   testimonials: Testimonial[]; // Testimonials are not editable in this version, but included for consistency
   caseStudies: CaseStudy[];
   setCaseStudies: React.Dispatch<React.SetStateAction<CaseStudy[]>>;
+  quotes: Quote[];
+  setQuotes: React.Dispatch<React.SetStateAction<Quote[]>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -67,6 +69,7 @@ export const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children
   const [youtubeVideos, setYoutubeVideos] = useStickyState<YouTubeVideo[]>('diamond-youtube-videos', INITIAL_YOUTUBE_VIDEOS);
   const [servicesData, setServicesData] = useStickyState<ServicesData>('diamond-services-data', INITIAL_SERVICES_DATA);
   const [caseStudies, setCaseStudies] = useStickyState<CaseStudy[]>('diamond-case-studies', INITIAL_CASE_STUDIES);
+  const [quotes, setQuotes] = useStickyState<Quote[]>('diamond-quotes', []);
   
   // For now, testimonials are static.
   const [testimonials] = useState<Testimonial[]>(INITIAL_TESTIMONIALS);
@@ -98,6 +101,8 @@ export const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children
     testimonials,
     caseStudies,
     setCaseStudies,
+    quotes,
+    setQuotes,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

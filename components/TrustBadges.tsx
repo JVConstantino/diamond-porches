@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { useTranslations } from '../context/LanguageProvider';
 
 const BBBLogo = () => (
     <svg className="h-12 text-gray-500" role="img" viewBox="0 0 256 256"><path fill="currentColor" d="M165.8 80.3h18.3v95.4h-18.3zm-30.6 47.7c0-21.3 14-36.2 34.6-36.2h14.3v-14h-13.8c-14.8 0-25.1 8.2-25.1 22.1v2.3h-10v95.4h10zm-49.4-47.7c0-21.3 14-36.2 34.6-36.2h14.3v-14H121c-14.8 0-25.1 8.2-25.1 22.1v2.3h-10v95.4h10zM227.1 0H28.9C12.9 0 0 12.9 0 28.9v198.3C0 243.1 12.9 256 28.9 256h198.3c15.9 0 28.9-12.9 28.9-28.9V28.9C256 12.9 243.1 0 227.1 0m-24.9 144.1c0-29.2-21-49-51.4-49h-18.3v99.5h18.3c30.4 0 51.4-19.8 51.4-49zm-61.1 0c0-29.2-21-49-51.4-49H71.4v99.5h18.3c30.4.1 51.4-19.7 51.4-49z"></path></svg>
@@ -25,11 +25,12 @@ const AngiLogo = () => (
 
 
 const TrustBadges: React.FC = () => {
+  const { t } = useTranslations();
   return (
     <div className="bg-white">
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <h2 className="text-center text-lg font-semibold text-gray-600">
-          Fully Licensed, Insured & Proudly Certified
+          {t('trust.title')}
         </h2>
         <div className="mt-8 flow-root">
             <div className="mx-auto grid max-w-lg grid-cols-2 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-4 sm:gap-x-10 lg:mx-0 lg:max-w-none">
@@ -45,7 +46,7 @@ const TrustBadges: React.FC = () => {
               <div className="flex justify-center items-center text-center">
                 <div className="text-gray-500">
                     <p className="font-bold text-xl">5-Year</p>
-                    <p className="text-sm">Workmanship Warranty</p>
+                    <p className="text-sm">{t('trust.warranty')}</p>
                 </div>
               </div>
             </div>

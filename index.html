@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,6 +37,45 @@
         }
       }
     </script>
+    <style>
+      @media print {
+        /* Hide everything on the page by default */
+        body * {
+          visibility: hidden;
+        }
+        /* Make only the printable quote area and its children visible */
+        #printable-quote, #printable-quote * {
+          visibility: visible;
+        }
+        /* Style the printable area to take up the full page */
+        #printable-quote {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          margin: 0;
+          padding: 2rem; /* Use relative units for better scaling */
+          border: none !important;
+          box-shadow: none !important;
+          background: #ffffff !important; /* Ensure a white background */
+          color: #000000; /* Ensure text is black */
+        }
+        /* Hide any elements specifically marked not for printing */
+        .no-print {
+          display: none !important;
+        }
+         /* Reset body styles for a clean print slate */
+        body {
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        /* Optional: Remove text shadows or other decorative text styles */
+        h1, h2, h3, h4, h5, h6, p {
+            text-shadow: none !important;
+        }
+      }
+    </style>
   <script type="importmap">
 {
   "imports": {
